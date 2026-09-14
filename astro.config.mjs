@@ -2,25 +2,23 @@
 import { defineConfig } from 'astro/config';
 
 // ---------------------------------------------------------------------------
-// GitHub Pages URL configuration — read this before your first deploy.
+// GitHub Pages URL configuration.
 //
-// Where the site will live decides whether you need `base`. Getting this wrong
-// is what makes a deployed Astro site show up as unstyled HTML (the CSS 404s).
+// This is a PROJECT site: the repo is named `datax-website`, so the site is
+// served from a subpath and `base` must match the repo name. Getting `base`
+// wrong is what makes a deployed Astro site render as unstyled HTML (the CSS
+// 404s), so if you rename the repo, change `base` in the same commit.
 //
-//   1. Org/user root site  -> repo is named `<org>.github.io`
-//      site: 'https://<org>.github.io'          and NO base
+// Live at: https://magiccow444.github.io/datax-website
 //
-//   2. Project site        -> repo is named anything else
-//      site: 'https://<org>.github.io'          and base: '/<repo-name>'
+// Internal links must go through url() in src/utils/url.ts rather than being
+// hand-written as href="/something" — that helper prepends the base for you.
 //
-//   3. Custom domain       -> e.g. dataxclub.org
-//      site: 'https://dataxclub.org'            and NO base
-//
-// Currently configured for case 1/3 (no base). If you end up on a project site,
-// uncomment the `base` line below and set it to your repo name.
+// If the club later moves to its own org and takes the root URL
+// (e.g. https://dataxsdsu.github.io), update `site` and DELETE the `base` line.
 // ---------------------------------------------------------------------------
 
 export default defineConfig({
   site: 'https://magiccow444.github.io',
-  // base: '/datax-website',
+  base: '/datax-website',
 });
