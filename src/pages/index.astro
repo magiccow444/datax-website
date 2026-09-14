@@ -1,0 +1,236 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { club, meeting, links, highlights } from '../config';
+
+const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
+const joinLabel = links.discord ? 'Join our Discord' : 'Email us';
+---
+
+<BaseLayout>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">{club.school}</p>
+        <h1 class="hero__title">{club.name}</h1>
+        <p class="hero__tagline">{club.tagline}</p>
+        <p class="hero__body">{club.description}</p>
+
+        <div class="hero__actions">
+          {
+            joinHref && (
+              <a class="button button--primary" href={joinHref}>
+                {joinLabel}
+              </a>
+            )
+          }
+          <a class="button button--secondary" href="#what-we-do">See what we do</a>
+        </div>
+      </div>
+
+      <aside class="meeting" aria-label="When we meet">
+        <p class="eyebrow">We meet</p>
+        <p class="meeting__day">{meeting.day}</p>
+        <p class="meeting__time">{meeting.time}</p>
+        <p class="meeting__where">{meeting.location}</p>
+        <p class="meeting__note">
+          Everyone is welcome, whatever your major or experience level. No application, no dues —
+          just turn up.
+        </p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- What we do -->
+  <section class="section" id="what-we-do">
+    <div class="container">
+      <p class="eyebrow">What we do</p>
+      <h2 class="section__title">Three things, done well</h2>
+
+      <ul class="cards" role="list">
+        {
+          highlights.map((item) => (
+            <li class="card">
+              <h3 class="card__title">{item.title}</h3>
+              <p class="card__body">{item.body}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Get involved -->
+  <section class="section">
+    <div class="container">
+      <div class="cta">
+        <h2 class="cta__title">Come to the next one</h2>
+        <p class="cta__body">
+          The easiest way to start is to show up {meeting.day.toLowerCase()} at {meeting.time} in {
+            meeting.location
+          }. Bring a laptop if you have one — we will have something for you to work on either way.
+        </p>
+        {
+          joinHref && (
+            <a class="button button--primary" href={joinHref}>
+              {joinLabel}
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  /* Hero */
+  .hero {
+    padding-block: var(--space-24) var(--space-16);
+    background-image: radial-gradient(
+      60rem 30rem at 15% -10%,
+      var(--color-accent-soft),
+      transparent 70%
+    );
+  }
+
+  .hero__inner {
+    display: grid;
+    grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+    gap: var(--space-12);
+    align-items: start;
+  }
+
+  .hero__title {
+    margin-top: var(--space-3);
+    font-size: var(--text-3xl);
+    font-weight: 750;
+  }
+
+  .hero__tagline {
+    margin-top: var(--space-4);
+    max-width: 34ch;
+    font-size: var(--text-xl);
+    color: var(--color-text);
+  }
+
+  .hero__body {
+    margin-top: var(--space-4);
+    max-width: 58ch;
+    color: var(--color-text-muted);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-8);
+  }
+
+  /* Meeting card */
+  .meeting {
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+  }
+
+  .meeting__day {
+    margin-top: var(--space-2);
+    font-size: var(--text-xl);
+    font-weight: 650;
+    letter-spacing: -0.02em;
+  }
+
+  .meeting__time {
+    font-size: var(--text-xl);
+    font-weight: 650;
+    color: var(--color-accent);
+    letter-spacing: -0.02em;
+  }
+
+  .meeting__where {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+  }
+
+  .meeting__note {
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
+    border-top: 1px solid var(--color-border);
+    font-size: var(--text-sm);
+    color: var(--color-text-muted);
+  }
+
+  /* Sections */
+  .section__title {
+    margin-top: var(--space-2);
+    font-size: var(--text-2xl);
+  }
+
+  /* Cards */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-8);
+    padding: 0;
+    list-style: none;
+  }
+
+  .card {
+    padding: var(--space-6);
+    background-color: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .card__title {
+    font-size: var(--text-lg);
+  }
+
+  .card__body {
+    margin-top: var(--space-2);
+    color: var(--color-text-muted);
+  }
+
+  /* Closing CTA */
+  .cta {
+    padding: var(--space-12) var(--space-8);
+    text-align: center;
+    background-color: var(--color-surface-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .cta__title {
+    font-size: var(--text-2xl);
+  }
+
+  .cta__body {
+    max-width: 52ch;
+    margin: var(--space-4) auto 0;
+    color: var(--color-text-muted);
+  }
+
+  .cta .button {
+    margin-top: var(--space-8);
+  }
+
+  /* Stack the hero on narrow screens. */
+  @media (max-width: 48rem) {
+    .hero {
+      padding-block: var(--space-16) var(--space-12);
+    }
+
+    .hero__inner {
+      grid-template-columns: minmax(0, 1fr);
+      gap: var(--space-8);
+    }
+
+    .cta {
+      padding: var(--space-8) var(--space-6);
+    }
+  }
+</style>

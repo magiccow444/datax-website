@@ -1,0 +1,98 @@
+---
+import { club, nav, links } from '../config';
+import { url } from '../utils/url';
+
+/** Join the club via Discord if we have it, otherwise fall back to email. */
+const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
+---
+
+<header class="header">
+  <div class="container header__inner">
+    <a class="header__brand" href={url()}>
+      <span class="header__mark" aria-hidden="true">{'{ }'}</span>
+      <span>{club.name}</span>
+    </a>
+
+    {
+      nav.length > 0 && (
+        <nav class="header__nav" aria-label="Main">
+          {nav.map((item) => (
+            <a href={url(item.href)}>{item.label}</a>
+          ))}
+        </nav>
+      )
+    }
+
+    {
+      joinHref && (
+        <a class="button button--primary header__cta" href={joinHref}>
+          Join us
+        </a>
+      )
+    }
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background-color: color-mix(in srgb, var(--color-bg) 85%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    min-height: 4rem;
+  }
+
+  .header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    margin-right: auto;
+    color: var(--color-text);
+    font-size: var(--text-lg);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    text-decoration: none;
+  }
+
+  .header__mark {
+    font-family: var(--font-mono);
+    color: var(--color-accent);
+  }
+
+  .header__nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .header__nav a {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    font-weight: 550;
+    text-decoration: none;
+  }
+
+  .header__nav a:hover {
+    color: var(--color-text);
+  }
+
+  .header__cta {
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--text-sm);
+  }
+
+  /* Phones: the CTA is already in the hero, so drop it from the bar. */
+  @media (max-width: 30rem) {
+    .header__cta {
+      display: none;
+    }
+  }
+</style>

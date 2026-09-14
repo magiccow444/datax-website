@@ -1,0 +1,234 @@
+/* ---------------------------------------------------------------------------
+   Design tokens.
+   Change a value here and it updates everywhere on the site. The dark palette
+   below re-declares the same names, so you only ever style things once.
+   --------------------------------------------------------------------------- */
+
+:root {
+  color-scheme: light dark;
+
+  /* Color — light */
+  --color-bg: #fbfbfd;
+  --color-surface: #ffffff;
+  --color-surface-alt: #f2f4f8;
+  --color-text: #15181f;
+  --color-text-muted: #5a6275;
+  --color-border: #e1e5ed;
+  --color-accent: #3d5afe;
+  --color-accent-hover: #2f49da;
+  --color-accent-soft: #eaeeff;
+  --color-on-accent: #ffffff;
+
+  /* Type */
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas,
+    "Liberation Mono", monospace;
+
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: clamp(1.25rem, 1.1rem + 0.7vw, 1.5rem);
+  --text-2xl: clamp(1.6rem, 1.3rem + 1.4vw, 2.25rem);
+  --text-3xl: clamp(2.1rem, 1.5rem + 2.8vw, 3.5rem);
+
+  /* Space */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* Shape */
+  --radius: 0.625rem;
+  --radius-lg: 1rem;
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow: 0 4px 16px -2px rgb(15 23 42 / 0.08);
+
+  /* Layout */
+  --content-width: 68rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #0d1017;
+    --color-surface: #151a23;
+    --color-surface-alt: #1b212c;
+    --color-text: #eef1f6;
+    --color-text-muted: #9aa4b8;
+    --color-border: #262e3b;
+    --color-accent: #7d8fff;
+    --color-accent-hover: #93a2ff;
+    --color-accent-soft: #1c2238;
+    --color-on-accent: #0d1017;
+
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
+    --shadow: 0 4px 20px -2px rgb(0 0 0 / 0.5);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Base
+   --------------------------------------------------------------------------- */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  text-wrap: balance;
+  font-weight: 650;
+}
+
+p {
+  text-wrap: pretty;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: var(--color-accent);
+  text-underline-offset: 0.2em;
+}
+
+a:hover {
+  color: var(--color-accent-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 3px;
+  border-radius: var(--space-1);
+}
+
+/* ---------------------------------------------------------------------------
+   Reusable bits
+   --------------------------------------------------------------------------- */
+
+.container {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+  padding-inline: var(--space-6);
+}
+
+.section {
+  padding-block: var(--space-16);
+}
+
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-6);
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  font-size: var(--text-base);
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease, border-color 120ms ease,
+    transform 120ms ease;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button--primary {
+  background-color: var(--color-accent);
+  color: var(--color-on-accent);
+}
+
+.button--primary:hover {
+  background-color: var(--color-accent-hover);
+  color: var(--color-on-accent);
+}
+
+.button--secondary {
+  background-color: transparent;
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+.button--secondary:hover {
+  background-color: var(--color-surface-alt);
+  color: var(--color-text);
+}
+
+/* Visually hidden, still announced by screen readers. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* Keyboard users land here first. */
+.skip-link {
+  position: absolute;
+  top: var(--space-2);
+  left: var(--space-2);
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  background-color: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: translateY(0);
+}

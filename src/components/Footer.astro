@@ -1,0 +1,88 @@
+---
+import { club, meeting, links } from '../config';
+
+/** Empty values in config.ts are filtered out, so placeholders never render. */
+const social = [
+  { label: 'Discord', href: links.discord },
+  { label: 'Email', href: links.email ? `mailto:${links.email}` : '' },
+  { label: 'Instagram', href: links.instagram },
+  { label: 'GitHub', href: links.github },
+].filter((item) => item.href !== '');
+
+const year = new Date().getFullYear();
+---
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <div>
+      <p class="footer__name">{club.fullName}</p>
+      <p class="footer__meta">
+        {meeting.day} at {meeting.time} · {meeting.location}
+      </p>
+    </div>
+
+    {
+      social.length > 0 && (
+        <nav class="footer__links" aria-label="Social">
+          {social.map((item) => (
+            <a href={item.href}>{item.label}</a>
+          ))}
+        </nav>
+      )
+    }
+  </div>
+
+  <div class="container">
+    <p class="footer__legal">© {year} {club.fullName} · {club.school}</p>
+  </div>
+</footer>
+
+<style>
+  .footer {
+    margin-top: var(--space-16);
+    padding-block: var(--space-12) var(--space-8);
+    background-color: var(--color-surface-alt);
+    border-top: 1px solid var(--color-border);
+  }
+
+  .footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: start;
+    justify-content: space-between;
+    gap: var(--space-6);
+  }
+
+  .footer__name {
+    font-weight: 650;
+  }
+
+  .footer__meta {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .footer__links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+  }
+
+  .footer__links a {
+    font-size: var(--text-sm);
+    font-weight: 550;
+    text-decoration: none;
+  }
+
+  .footer__links a:hover {
+    text-decoration: underline;
+  }
+
+  .footer__legal {
+    margin-top: var(--space-8);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+</style>

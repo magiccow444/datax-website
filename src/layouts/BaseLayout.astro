@@ -1,0 +1,49 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { club } from '../config';
+import { url } from '../utils/url';
+import '../styles/global.css';
+
+interface Props {
+  /** Page title. Rendered as "<title> · DataX", or just the club name on the home page. */
+  title?: string;
+  /** Meta description for search results and link previews. */
+  description?: string;
+}
+
+const { title, description = club.description } = Astro.props;
+
+const pageTitle = title ? `${title} · ${club.name}` : `${club.name} — ${club.tagline}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href={url("/favicon.svg")} />
+    <link rel="canonical" href={canonical} />
+
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <meta name="generator" content={Astro.generator} />
+  </head>
+
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
