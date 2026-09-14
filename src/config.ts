@@ -14,19 +14,19 @@ export const club = {
   /** TODO: full name as it appears officially. */
   fullName: 'DataX Data Science Club',
   /** TODO: your school. */
-  school: 'Your University',
+  school: 'San Diego State University',
   /** One line, shown under the club name in the hero. Keep it short. */
   tagline: 'Learn data science by building things with people who are figuring it out too.',
   /** A sentence or two. Used for the hero body and search/social previews. */
   description:
-    'We are a student-run club for anyone curious about data — no experience required. We run hands-on workshops, build real projects together, and help each other get better at the tools that actually matter.',
+    'We are a student-run club for anyone curious about data, no experience required. We run hands-on workshops, build real projects together, and help each other get better at the tools that actually matter.',
 };
 
 export const meeting = {
   /** TODO: confirm these before sharing the site. */
-  day: 'Thursdays',
+  day: 'Wednesday',
   time: '6:00 PM',
-  location: 'Science Hall, Room 210',
+  location: 'Room TBD',
 };
 
 /**
@@ -56,7 +56,7 @@ export const highlights = [
   },
   {
     title: 'Projects',
-    body: 'Small teams work on real datasets across a semester — from scraping and cleaning through to a result worth showing off.',
+    body: 'Small teams work on real datasets across a semester, from scraping and cleaning through to a result worth showing off.',
   },
   {
     title: 'Community',

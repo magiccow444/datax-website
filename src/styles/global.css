@@ -8,16 +8,19 @@
   color-scheme: light dark;
 
   /* Color — light */
-  --color-bg: #fbfbfd;
+  --color-bg: #fdfcff;
   --color-surface: #ffffff;
-  --color-surface-alt: #f2f4f8;
-  --color-text: #15181f;
-  --color-text-muted: #5a6275;
-  --color-border: #e1e5ed;
-  --color-accent: #3d5afe;
-  --color-accent-hover: #2f49da;
-  --color-accent-soft: #eaeeff;
+  --color-surface-alt: #f6f2fc;
+  --color-text: #1a1426;
+  --color-text-muted: #655c78;
+  --color-border: #e9e2f4;
+  --color-accent: #7c3aed;
+  --color-accent-hover: #6d28d9;
+  --color-accent-soft: #f1ebfe;
   --color-on-accent: #ffffff;
+  /* Hero wash — the two purple glows behind the top of the page. */
+  --color-glow-1: #e4d5fd;
+  --color-glow-2: #f7e0fa;
 
   /* Type */
   --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
@@ -46,8 +49,8 @@
   /* Shape */
   --radius: 0.625rem;
   --radius-lg: 1rem;
-  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
-  --shadow: 0 4px 16px -2px rgb(15 23 42 / 0.08);
+  --shadow-sm: 0 1px 2px rgb(46 16 84 / 0.07);
+  --shadow: 0 4px 16px -2px rgb(46 16 84 / 0.10);
 
   /* Layout */
   --content-width: 68rem;
@@ -55,16 +58,18 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-bg: #0d1017;
-    --color-surface: #151a23;
-    --color-surface-alt: #1b212c;
-    --color-text: #eef1f6;
-    --color-text-muted: #9aa4b8;
-    --color-border: #262e3b;
-    --color-accent: #7d8fff;
-    --color-accent-hover: #93a2ff;
-    --color-accent-soft: #1c2238;
-    --color-on-accent: #0d1017;
+    --color-bg: #0f0b18;
+    --color-surface: #181226;
+    --color-surface-alt: #1e1730;
+    --color-text: #f2eefa;
+    --color-text-muted: #a99fc0;
+    --color-border: #2f2545;
+    --color-accent: #a78bfa;
+    --color-accent-hover: #c4b5fd;
+    --color-accent-soft: #241b38;
+    --color-on-accent: #0f0b18;
+    --color-glow-1: #2c1d54;
+    --color-glow-2: #3b1f4e;
 
     --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.4);
     --shadow: 0 4px 20px -2px rgb(0 0 0 / 0.5);

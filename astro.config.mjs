@@ -21,6 +21,6 @@ import { defineConfig } from 'astro/config';
 // ---------------------------------------------------------------------------
 
 export default defineConfig({
-  site: 'https://example.github.io',
+  site: 'https://magiccow444.github.io',
   // base: '/datax-website',
 });
