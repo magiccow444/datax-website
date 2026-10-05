@@ -20,11 +20,11 @@ for (const event of sorted) {
 
 <BaseLayout
   title="Calendar"
-  description="General Body Meetings for the 2026–2027 academic year: dates, times, locations, and guest speakers."
+  description="DataX General Body Meetings and socials for the 2026–2027 academic year: dates, times, locations, and guest speakers."
 >
   <PageIntro eyebrow="2026–2027" title="Calendar">
-    Every General Body Meeting this academic year. All majors and experience levels are welcome
-    at every one.
+    Every General Body Meeting and social this academic year. All majors and experience levels are
+    welcome at every one.
     {
       links.instagram && (
         <>
@@ -78,7 +78,7 @@ for (const event of sorted) {
                                     speaker.name
                                   )}
                                 </p>
-                                <p class="speaker__position">{speaker.position}</p>
+                                {speaker.position && <p class="speaker__position">{speaker.position}</p>}
                               </div>
                             </li>
                           ))}

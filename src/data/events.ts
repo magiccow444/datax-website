@@ -9,8 +9,8 @@ import type { Photo } from './types';
 
 export interface Speaker {
   name: string;
-  /** e.g. 'Senior Data Scientist, Intuit' */
-  position: string;
+  /** e.g. 'Senior Data Scientist, Intuit'. Optional. */
+  position?: string;
   photo?: string;
   /** LinkedIn or other profile URL. */
   profile?: string;
@@ -37,56 +37,87 @@ export const calendar: CalendarEvent[] = [
   {
     title: 'GBM #1: Picnic Social',
     date: '2026-09-23',
-    time: '6:00 PM',
+    time: '6:00 – 7:00 PM',
     location: 'Aztec Green',
     description:
       'Kick off the year with a picnic. Meet the executive board, learn what DataX is about, and hear what we have planned for the semester.',
   },
   {
-    title: 'GBM #2: Guest Speaker',
+    title: 'GBM #2: Guest Speaker Kristine Dinh',
+    date: '2026-09-30',
+    time: '6:00 – 7:00 PM',
+    location: 'SSW 1200',
+    description: 'Kristine Dinh, Data Scientist at Brown & Brown, talks about working in data science. Cookies provided.',
+    speakers: [{ name: 'Kristine Dinh', position: 'Data Scientist, Brown & Brown' }],
+  },
+  {
+    title: 'GBM #3: Guest Speaker Nathaniel Shalev',
     date: '2026-10-07',
-    time: '6:00 PM',
-    location: 'GMCS 421',
-    description: 'Speaker to be announced. Follow our Instagram for the reveal.',
+    time: '6:00 – 7:00 PM',
+    location: 'Location TBA',
+    description: 'Nathaniel Shalev, Software Developer at General Atomics, shares their experience in industry.',
+    speakers: [{ name: 'Nathaniel Shalev', position: 'Software Developer, General Atomics' }],
   },
   {
-    title: 'GBM #3: Guest Speaker from Data Science Alliance',
+    title: 'GBM #4: Guest Speaker Noael Jabrael',
     date: '2026-10-14',
-    time: '6:00 PM',
-    location: 'GMCS 421',
-    description: 'Noelle from Data Science Alliance joins us to talk about working in data and how to get started.',
-    speakers: [{ name: 'Noelle', position: 'Data Science Alliance' }],
+    time: '6:00 – 7:00 PM',
+    location: 'Location TBA',
+    description:
+      "Noael Jabrael from Data Science Alliance joins us to talk about data work and outreach. Plus: Rubio's all-day fundraiser for DataX.",
+    speakers: [{ name: 'Noael Jabrael', position: 'Data Science Alliance' }],
   },
   {
-    title: 'GBM #4: Resume and LinkedIn Workshop',
+    title: 'STEM Bowling Social',
+    date: '2026-10-16',
+    time: '1:00 – 3:00 PM',
+    location: 'Location TBA',
+    description:
+      'A bowling social with SDSU AI, eLeetCoders, ACM, CTRL, SAME, and Math Club. A great way to meet people across STEM orgs.',
+  },
+  {
+    title: 'GBM #5: Resume Review with Industry Professionals',
     date: '2026-10-21',
-    time: '6:00 PM',
-    location: 'GMCS 421',
+    time: '6:00 – 7:00 PM (may run longer)',
+    location: 'Location TBA',
     description:
-      'Get your resume and LinkedIn ready for internship and job applications, whatever field you are aiming for.',
+      "Get your resume reviewed one-on-one. We're lining up reviewers from companies including Amazon, Google, Apple, ASML, Qualcomm, and General Atomics. Plus: Panda Express all-day fundraiser for DataX.",
   },
   {
-    title: 'GBM #5: Qualcomm Financial Analyst Panel',
+    title: 'GBM #6: Guest Speaker Ross Paul Martin',
+    date: '2026-10-28',
+    time: '6:00 – 7:00 PM',
+    location: 'Location TBA',
+    description:
+      'Ross Paul Martin, Data and Analytics Manager for the County of San Diego, talks about how data supports public services.',
+    speakers: [{ name: 'Ross Paul Martin', position: 'Data and Analytics Manager, County of San Diego' }],
+  },
+  {
+    title: 'GBM #7: Qualcomm Finance Panel',
     date: '2026-11-04',
-    time: '6:00 PM',
-    location: 'GMCS 421',
-    description:
-      'Three financial analysts from Qualcomm talk about how they use data day to day and answer your questions.',
+    time: '6:00 – 7:00 PM (may run longer)',
+    location: 'Location TBA',
+    description: 'Three finance professionals from Qualcomm talk about how they use data day to day and answer your questions.',
+    speakers: [
+      { name: 'Jusraunaq Farmahan', position: 'Qualcomm' },
+      { name: 'Alicia Hsiao', position: 'Qualcomm' },
+      { name: 'Nikhita Patel', position: 'Qualcomm' },
+    ],
   },
   {
-    title: 'GBM #6: Gemini Workshop',
+    title: 'GBM #8: Gemini Workshop: Personal Data Dashboard',
     date: '2026-11-18',
-    time: '6:00 PM',
-    location: 'GMCS 421',
-    description: 'A hands-on collaborative workshop on using Google Gemini. More details soon.',
+    time: '6:00 – 7:00 PM',
+    location: 'Location TBA',
+    description: 'Build your own personal data dashboard with Google Gemini in this hands-on workshop led by Annitha Krishnan.',
+    speakers: [{ name: 'Annitha Krishnan' }],
   },
   {
-    title: 'GBM #7: Study Social',
+    title: 'GBM #9: Study Social',
     date: '2026-12-02',
-    time: '6:00 PM',
-    location: 'GMCS 421',
-    description:
-      'Wind down the semester and study for finals together, possibly alongside other student organizations.',
+    time: '6:00 – 7:00 PM',
+    location: 'Location TBA',
+    description: 'Study for finals together and wind down the semester, possibly alongside other student organizations.',
   },
 ];
 
