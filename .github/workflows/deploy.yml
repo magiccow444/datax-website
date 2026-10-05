@@ -1,8 +1,16 @@
-name: Deploy to GitHub Pages
+name: Build for cPanel
 
-# One-time setup: in the repo, go to
-#   Settings -> Pages -> Build and deployment -> Source -> "GitHub Actions"
-# Without that, this workflow builds fine but never publishes.
+# Builds the site and commits the output to the `cpanel-deploy` branch, which
+# cPanel's Git Version Control pulls from. No secrets needed.
+#
+# One-time setup in cPanel -> Git Version Control -> Create:
+#   Clone URL:       https://github.com/magiccow444/datax-website.git
+#   Repository path: /home/datax/repositories/datax-website
+# Then open Manage -> Basic Information and check out the `cpanel-deploy` branch.
+#
+# After every push to main, once this workflow finishes, go to
+#   Git Version Control -> Manage -> Pull or Deploy
+# and click "Update from Remote", then "Deploy HEAD Commit".
 
 on:
   push:
@@ -10,13 +18,11 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
-  pages: write
-  id-token: write
+  contents: write
 
-# Let a running deploy finish rather than cancelling it mid-publish.
+# Let a running build finish so two pushes to cpanel-deploy can't collide.
 concurrency:
-  group: pages
+  group: deploy
   cancel-in-progress: false
 
 jobs:
@@ -26,18 +32,42 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Build site
-        uses: withastro/action@v3
+      - name: Set up Node
+        uses: actions/setup-node@v4
         with:
           node-version: 22
+          cache: npm
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build site
+        run: npm run build
+
+      # Commit on top of the existing branch rather than force-pushing a fresh
+      # one, so "Update from Remote" in cPanel is always a plain fast-forward.
+      - name: Commit build to cpanel-deploy
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin cpanel-deploy; then
+            git fetch --depth 1 origin cpanel-deploy
+            git worktree add --detach out FETCH_HEAD
+          else
+            git worktree add --orphan -b cpanel-deploy out
+          fi
+
+          cd out
+          git rm -rq --ignore-unmatch .
+          mkdir site
+          cp -R ../dist/. site/
+          cp ../deploy/.cpanel.yml .
+
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Build output unchanged; nothing to deploy."
+            exit 0
+          fi
+          git commit -m "Build ${GITHUB_SHA::7}"
+          git push origin HEAD:cpanel-deploy

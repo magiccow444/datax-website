@@ -1,0 +1,15 @@
+# Apache config for cPanel. Astro copies this file into dist/ unchanged.
+
+# Don't list folder contents when there's no index.html.
+Options -Indexes
+
+# Serve the site's own 404 page.
+ErrorDocument 404 /404.html
+
+# Redirect http:// to https://.
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteCond %{HTTP:X-Forwarded-Proto} !https
+  RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
