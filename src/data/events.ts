@@ -64,7 +64,7 @@ export const calendar: CalendarEvent[] = [
     time: '6:00 – 7:00 PM',
     location: 'GMCS 421',
     description:
-      "Noael Jabrael from Data Science Alliance joins us to talk about data work and outreach. Plus: Rubio's all-day fundraiser for DataX.",
+      "Noael Jabrael from Data Science Alliance joins us to talk about data work and outreach.",
     speakers: [{ name: 'Noael Jabrael', position: 'Data Science Alliance' }],
   },
   {
@@ -81,7 +81,7 @@ export const calendar: CalendarEvent[] = [
     time: '6:00 – 7:00 PM (may run longer)',
     location: 'Location TBA',
     description:
-      "Get your resume reviewed one-on-one. We're lining up reviewers from companies including Amazon, Google, Apple, ASML, Qualcomm, and General Atomics. Plus: Panda Express all-day fundraiser for DataX.",
+      "Get your resume reviewed one-on-one. We're lining up reviewers from companies including Amazon, Google, Apple, ASML, Qualcomm, and General Atomics.",
   },
   {
     title: 'GBM #6: Guest Speaker Ross Paul Martin',
