@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { links } from '../config';
+
+/** Empty links in config.ts are hidden. */
+const channels = [
+  {
+    label: 'Instagram',
+    note: 'Our most up-to-date source for events, reminders, and last-minute changes.',
+    href: links.instagram,
+    featured: true,
+  },
+  {
+    label: 'Discord',
+    note: 'Chat with members, ask questions, and find study groups.',
+    href: links.discord,
+  },
+  {
+    label: 'LinkedIn',
+    note: 'Club news, speaker announcements, and member highlights.',
+    href: links.linkedin,
+  },
+  {
+    label: 'Linktree',
+    note: 'All of our links, forms, and sign-ups in one place.',
+    href: links.linktree,
+  },
+  {
+    label: 'Email',
+    note: links.email,
+    href: links.email ? `mailto:${links.email}` : '',
+  },
+].filter((channel) => channel.href !== '');
+---
+
+<BaseLayout title="Let's Connect" description="Find DataX on Instagram, Discord, LinkedIn, and email.">
+  <PageIntro eyebrow="Stay in touch" title="Let's Connect">
+    Questions, an idea for an event, or interested in speaking at a meeting? Reach out on any of
+    these.
+  </PageIntro>
+
+  <section class="section section--tight">
+    <div class="container">
+      {
+        channels.length > 0 ? (
+          <ul class="channels" role="list">
+            {channels.map((channel) => (
+              <li>
+                <a
+                  class:list={['channel', 'card', { 'channel--featured': channel.featured }]}
+                  href={channel.href}
+                >
+                  <span class="channel__label">
+                    {channel.label}
+                    {channel.featured && <span class="channel__badge">Most up to date</span>}
+                  </span>
+                  <span class="channel__note">{channel.note}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <EmptyState>Our links will be posted here soon.</EmptyState>
+        )
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section--tight {
+    padding-block: var(--space-8);
+  }
+
+  .channels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(18rem, 1fr));
+    gap: var(--space-4);
+    padding: 0;
+    list-style: none;
+  }
+
+  .channel {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+    height: 100%;
+    color: var(--color-text);
+    text-decoration: none;
+    transition: border-color 120ms ease, transform 120ms ease;
+  }
+
+  .channel:hover {
+    color: var(--color-text);
+    border-color: var(--color-accent);
+    transform: translateY(-2px);
+  }
+
+  .channel--featured {
+    border-color: var(--color-accent);
+    background-color: var(--color-accent-soft);
+  }
+
+  .channel__label {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--text-lg);
+    font-weight: 650;
+  }
+
+  .channel__badge {
+    padding: 0.1rem var(--space-2);
+    background-color: var(--color-accent);
+    color: var(--color-on-accent);
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+
+  .channel__note {
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+    overflow-wrap: anywhere;
+  }
+</style>

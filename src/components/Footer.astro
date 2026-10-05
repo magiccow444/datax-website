@@ -3,10 +3,11 @@ import { club, meeting, links } from '../config';
 
 /** Empty values in config.ts are filtered out, so placeholders never render. */
 const social = [
-  { label: 'Discord', href: links.discord },
-  { label: 'Email', href: links.email ? `mailto:${links.email}` : '' },
   { label: 'Instagram', href: links.instagram },
-  { label: 'GitHub', href: links.github },
+  { label: 'LinkedIn', href: links.linkedin },
+  { label: 'Discord', href: links.discord },
+  { label: 'Linktree', href: links.linktree },
+  { label: 'Email', href: links.email ? `mailto:${links.email}` : '' },
 ].filter((item) => item.href !== '');
 
 const year = new Date().getFullYear();

@@ -1,0 +1,65 @@
+---
+import { url } from '../utils/url';
+
+interface Props {
+  name: string;
+  /** Path relative to public/. Leave empty to show initials. */
+  photo?: string;
+  size?: 'md' | 'lg';
+}
+
+const { name, photo, size = 'md' } = Astro.props;
+
+const initials = name
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((part) => part[0])
+  .slice(0, 2)
+  .join('')
+  .toUpperCase();
+---
+
+{
+  photo ? (
+    <img class:list={['avatar', `avatar--${size}`]} src={url(photo)} alt={name} loading="lazy" />
+  ) : (
+    <span class:list={['avatar', 'avatar--initials', `avatar--${size}`]} aria-hidden="true">
+      {initials}
+    </span>
+  )
+}
+
+<style>
+  .avatar {
+    flex-shrink: 0;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .avatar--md {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  .avatar--lg {
+    width: 9rem;
+    height: 9rem;
+  }
+
+  .avatar--initials {
+    display: inline-grid;
+    place-items: center;
+    background-color: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+  }
+
+  .avatar--md.avatar--initials {
+    font-size: var(--text-lg);
+  }
+
+  .avatar--lg.avatar--initials {
+    font-size: var(--text-2xl);
+  }
+</style>

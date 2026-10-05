@@ -1,0 +1,18 @@
+---
+/** Shown in place of a list that hasn't been filled in yet. */
+---
+
+<div class="empty">
+  <slot />
+</div>
+
+<style>
+  .empty {
+    padding: var(--space-8);
+    text-align: center;
+    color: var(--color-text-muted);
+    background-color: var(--color-surface-alt);
+    border: 1px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+</style>

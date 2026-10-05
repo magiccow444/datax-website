@@ -4,12 +4,15 @@ import { url } from '../utils/url';
 
 /** Join the club via Discord if we have it, otherwise fall back to email. */
 const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
+
+const trim = (path: string) => path.replace(/\/$/, '');
+const current = trim(Astro.url.pathname);
 ---
 
 <header class="header">
   <div class="container header__inner">
     <a class="header__brand" href={url()}>
-      <span class="header__mark" aria-hidden="true">{'{ }'}</span>
+      {club.logo && <img class="header__logo" src={url(club.logo)} alt="" />}
       <span>{club.name}</span>
     </a>
 
@@ -17,7 +20,12 @@ const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
       nav.length > 0 && (
         <nav class="header__nav" aria-label="Main">
           {nav.map((item) => (
-            <a href={url(item.href)}>{item.label}</a>
+            <a
+              href={url(item.href)}
+              aria-current={trim(url(item.href)) === current ? 'page' : undefined}
+            >
+              {item.label}
+            </a>
           ))}
         </nav>
       )
@@ -45,15 +53,16 @@ const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
 
   .header__inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
-    gap: var(--space-6);
+    column-gap: var(--space-6);
     min-height: 4rem;
   }
 
   .header__brand {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
+    gap: var(--space-3);
     margin-right: auto;
     color: var(--color-text);
     font-size: var(--text-lg);
@@ -62,14 +71,19 @@ const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
     text-decoration: none;
   }
 
-  .header__mark {
-    font-family: var(--font-mono);
-    color: var(--color-accent);
+  .header__brand:hover {
+    color: var(--color-text);
+  }
+
+  /* The logo has its own dark background, so show it as a rounded badge. */
+  .header__logo {
+    width: auto;
+    height: 3rem;
+    border-radius: var(--radius);
   }
 
   .header__nav {
     display: flex;
-    flex-wrap: wrap;
     gap: var(--space-6);
   }
 
@@ -78,10 +92,19 @@ const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
     font-size: var(--text-sm);
     font-weight: 550;
     text-decoration: none;
+    white-space: nowrap;
   }
 
-  .header__nav a:hover {
+  .header__nav a:hover,
+  .header__nav a[aria-current='page'] {
     color: var(--color-text);
+  }
+
+  .header__nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--color-accent);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.45em;
   }
 
   .header__cta {
@@ -89,10 +112,37 @@ const joinHref = links.discord || (links.email ? `mailto:${links.email}` : '');
     font-size: var(--text-sm);
   }
 
-  /* Phones: the CTA is already in the hero, so drop it from the bar. */
+  /* Narrow screens: the nav drops to its own row and scrolls sideways if it
+     still doesn't fit, rather than squeezing the brand. */
+  @media (max-width: 56rem) {
+    .header__inner {
+      padding-top: var(--space-3);
+    }
+
+    .header__nav {
+      order: 3;
+      width: 100%;
+      gap: var(--space-6);
+      padding-block: var(--space-3);
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+  }
+
+  /* Phones: the CTA is already in the hero, so drop it from the bar, and
+     tighten the nav so all four links fit on a typical phone. */
   @media (max-width: 30rem) {
     .header__cta {
       display: none;
+    }
+
+    .header__nav {
+      justify-content: space-between;
+      gap: var(--space-3);
+    }
+
+    .header__nav a {
+      font-size: 0.8125rem;
     }
   }
 </style>

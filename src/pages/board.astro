@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import Avatar from '../components/Avatar.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { boardYear, groupPhotos, officers, advisor } from '../data/board';
+---
+
+<BaseLayout
+  title="Executive Board"
+  description={`Meet the DataX executive board for ${boardYear} and our faculty advisor.`}
+>
+  <PageIntro eyebrow={boardYear} title="Executive Board">
+    The students who run DataX this year, and the faculty advisor who supports us.
+  </PageIntro>
+
+  {
+    groupPhotos.length > 0 && (
+      <section class="section section--tight">
+        <div class="container">
+          <h2 class="visually-hidden">Group photos</h2>
+          <PhotoGrid photos={groupPhotos} />
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2 class="section__title">Officers</h2>
+      {
+        officers.length > 0 ? (
+          <ul class="officers" role="list">
+            {officers.map((officer) => (
+              <li class="officer card">
+                <Avatar name={officer.name} photo={officer.photo} size="lg" />
+                <h3 class="officer__name">{officer.name}</h3>
+                <p class="officer__position">{officer.position}</p>
+                <p class="officer__meta">
+                  {officer.major} · {officer.year}
+                </p>
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <div class="spaced">
+            <EmptyState>The {boardYear} officers will be announced here soon.</EmptyState>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--tight">
+    <div class="container">
+      <h2 class="section__title">Faculty Advisor</h2>
+      <div class="advisor card">
+        <Avatar name={advisor.name} photo={advisor.photo} size="lg" />
+        <div>
+          <h3 class="officer__name">{advisor.name}</h3>
+          <p class="officer__position">{advisor.title}</p>
+          {advisor.department && <p class="officer__meta">{advisor.department}</p>}
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section--tight {
+    padding-block: var(--space-8);
+  }
+
+  .spaced {
+    margin-top: var(--space-6);
+  }
+
+  .officers {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(14rem, 1fr));
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .officer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .officer__name {
+    margin-top: var(--space-4);
+    font-size: var(--text-lg);
+  }
+
+  .officer__position {
+    color: var(--color-accent);
+    font-weight: 600;
+  }
+
+  .officer__meta {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .advisor {
+    display: flex;
+    align-items: center;
+    gap: var(--space-6);
+    max-width: 32rem;
+    margin-top: var(--space-6);
+  }
+
+  .advisor .officer__name {
+    margin-top: 0;
+  }
+
+  @media (max-width: 30rem) {
+    .advisor {
+      flex-direction: column;
+      text-align: center;
+    }
+  }
+</style>

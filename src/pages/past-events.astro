@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageIntro from '../components/PageIntro.astro';
+import PhotoGrid from '../components/PhotoGrid.astro';
+import EmptyState from '../components/EmptyState.astro';
+import { pastEvents, type PastEvent } from '../data/events';
+import { url } from '../utils/url';
+import { formatDate } from '../utils/date';
+
+/** Group by semester, keeping the order they appear in the data file. */
+const semesters = new Map<string, PastEvent[]>();
+for (const event of pastEvents) {
+  semesters.set(event.semester, [...(semesters.get(event.semester) ?? []), event]);
+}
+---
+
+<BaseLayout
+  title="Past Events"
+  description="A look back at DataX workshops, guest speakers, and socials from previous semesters."
+>
+  <PageIntro eyebrow="Looking back" title="Past Events">
+    Workshops, guest speakers, and socials from previous semesters. See what's coming up on the{' '}
+    <a href={url('/calendar')}>calendar</a>.
+  </PageIntro>
+
+  <section class="section section--tight">
+    <div class="container">
+      {
+        semesters.size === 0 && (
+          <EmptyState>Photos and recaps from past events are on the way.</EmptyState>
+        )
+      }
+
+      {
+        [...semesters].map(([semester, events]) => (
+          <div class="semester">
+            <h2 class="section__title">{semester}</h2>
+            <ul class="events" role="list">
+              {events.map((event) => (
+                <li class="event card">
+                  <h3 class="event__title">{event.title}</h3>
+                  {event.date && (
+                    <p class="event__meta">
+                      <time datetime={event.date}>{formatDate(event.date)}</time>
+                    </p>
+                  )}
+                  <p class="event__caption">{event.caption}</p>
+                  {event.photos && event.photos.length > 0 && (
+                    <div class="event__photos">
+                      <PhotoGrid photos={event.photos} />
+                    </div>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>
+
+<style>
+  .section--tight {
+    padding-block: var(--space-8);
+  }
+
+  .semester + .semester {
+    margin-top: var(--space-12);
+  }
+
+  .events {
+    display: grid;
+    gap: var(--space-4);
+    margin-top: var(--space-6);
+    padding: 0;
+    list-style: none;
+  }
+
+  .event__title {
+    font-size: var(--text-lg);
+  }
+
+  .event__meta {
+    margin-top: var(--space-1);
+    color: var(--color-text-muted);
+    font-size: var(--text-sm);
+  }
+
+  .event__caption {
+    margin-top: var(--space-3);
+  }
+
+  .event__photos {
+    margin-top: var(--space-4);
+  }
+</style>
